@@ -1,0 +1,27 @@
+<!--Création d'un fichier HTML utilisé avec Jinja pour afficher les résultats des requêtes wikidata dans une page web-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikidata Retrieval</title>
+</head>
+<body>
+    <h1>Résultats de la requête Wikidata</h1>
+    <!--Utilisation d'une condition pour afficher les métadonnées si elles existent-->
+    {% if status_code and content_type %}
+        <h2>Métadonnées</h2>
+        <p><strong>Code HTTP :</strong> {{ status_code }}</p>
+        <p><strong>Type de contenu :</strong> {{ content_type }}</p>
+    {% endif %}
+    <!--Utilisation d'une condition pour afficher les données de l'entité-->
+    {% if entity_data %}
+        <h2>Données de l'entité</h2>
+        <pre>{{ entity_data | tojson(indent=2) }}</pre>
+    <!--Envoyer un message d'erreur si la condition n'est pas remplie -->
+    {% else %}
+        <h2>Erreur</h2>
+        <p>{{ error_message }}</p>
+    {% endif %}
+</body>
+</html>
